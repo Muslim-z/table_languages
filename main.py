@@ -1,4 +1,7 @@
+import os
+
 import requests
+from dotenv import load_dotenv
 from time import sleep
 from terminaltables import AsciiTable
 
@@ -42,7 +45,7 @@ def get_vacansis_sj(language):
     vacancees_processed = 0
     page = 1
     headers = {
-        'X-Api-App-Id': 'v3.h.4353318.7d8685316d48877f7e967467026bbc884bd23e59.e06fdcd08895f0f69106e9857f1db21cfa7e129e',
+        'X-Api-App-Id': sj_key,
         'Content-Type': 'application/x-www-form-urlencoded'
     }
     while True:
@@ -116,7 +119,8 @@ def make_table(languages_info):
     return table.table
 
 if __name__ == '__main__':
-    secret_key = 'v3.h.4353318.7d8685316d48877f7e967467026bbc884bd23e59.e06fdcd08895f0f69106e9857f1db21cfa7e129e'
+    load_dotenv()
+    sj_key = os.environs['SUPERJOB_KEY']
     languages = [
         'Python',
         'Java',
