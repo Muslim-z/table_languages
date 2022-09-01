@@ -126,12 +126,8 @@ if __name__ == '__main__':
         'Java',
         'JavaScript',
     ]
-    top_languages_sj = [
-
-    ]
-    top_languages_hh = [
-
-    ]
+    sj_top_languages = []
+    hh_top_languages = []
 
     for language in languages:
         top_languages_sj.append(get_vacansis_sj(language))
