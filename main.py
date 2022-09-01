@@ -41,6 +41,8 @@ def get_vacansis_hh(language):
 
 
 def get_vacansis_sj(language):
+    moscow_id = 4
+    page_count = 100
     total_money = 0
     vacancees_processed = 0
     page = 1
@@ -51,10 +53,10 @@ def get_vacansis_sj(language):
     while True:
         try:
             payload = {
-                'id': 4,
+                'id': moscow_id,
                 'keyword': f'программист {language}',
                 'page': page,
-                'count': 100
+                'count': page_count
             }
             response = requests.get('https://api.superjob.ru/2.0/vacancies', headers=headers, params=payload)
             response.raise_for_status()
