@@ -120,16 +120,11 @@ def make_table(languages_info):
 
 if __name__ == '__main__':
     load_dotenv()
-    sj_key = os.environs['SUPERJOB_KEY']
+    sj_key = os.environ['SUPERJOB_KEY']
     languages = [
         'Python',
         'Java',
         'JavaScript',
-        # 'C++',
-        # 'C',
-        # 'Swift',
-        # 'Go',
-        # 'Scala'
     ]
     top_languages_sj = [
 
