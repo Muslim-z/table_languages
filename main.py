@@ -71,7 +71,6 @@ def get_vacansis_sj(language):
             if not response.json()['more']:
                 break
         except requests.exceptions.ConnectionError:
-            print('Ошибка подключения')
             sleep(2)
     average_salary = int(total_money / vacancees_processed)
     language_info = {
