@@ -31,14 +31,14 @@ def get_vacansis_hh(language):
                     total_vacances_money_hh += salary
                     vacancees_processed += 1
         average_salary = int(total_vacances_money_hh / vacancees_processed)
-        language_info = {
+        language_params = {
             'language': language,
             'vacancies_found': response.json()['found'],
             'vacancies_processed': vacancees_processed,
             'average_salary': average_salary
         }
 
-    return language_info
+    return language_params
 
 
 def get_vacansis_sj(language):
@@ -74,13 +74,13 @@ def get_vacansis_sj(language):
         except requests.exceptions.ConnectionError:
             sleep(2)
     average_salary = int(total_vacances_money_sj / vacancees_processed)
-    language_info = {
+    language_params = {
         'language': language,
         'vacancies_found': response.json()['total'],
         'vacancies_processed': vacancees_processed,
         'average_salary': average_salary
     }
-    return language_info
+    return language_params
 
 
 def predict_rub_salary_for_head_hunter(salary):
