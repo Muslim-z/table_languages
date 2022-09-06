@@ -7,6 +7,7 @@ from terminaltables import AsciiTable
 
 
 def get_vacansis_hh(language):
+    moscow_id_for_hh = 1
     total_money = 0
     vacancees_processed = 0
     page = 1
@@ -16,7 +17,7 @@ def get_vacansis_hh(language):
 
         payload = {
             'text': f'программист{language}',
-            'area': 1,
+            'area': moscow_id_for_hh,
             'page': page
         }
         response = requests.get('https://api.hh.ru/vacancies', params=payload)
@@ -41,7 +42,7 @@ def get_vacansis_hh(language):
 
 
 def get_vacansis_sj(language):
-    moscow_id = 4
+    moscow_id_for_sj = 4
     page_count = 100
     total_money = 0
     vacancees_processed = 0
@@ -53,7 +54,7 @@ def get_vacansis_sj(language):
     while True:
         try:
             payload = {
-                'id': moscow_id,
+                'id': moscow_id_for_sj,
                 'keyword': f'программист {language}',
                 'page': page,
                 'count': page_count
