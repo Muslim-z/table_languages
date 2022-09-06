@@ -8,7 +8,7 @@ from terminaltables import AsciiTable
 
 def get_vacansis_hh(language):
     moscow_id_for_hh = 1
-    total_money = 0
+    total_vacances_money_hh = 0
     vacancees_processed = 0
     page = 1
     pages_number = 2
@@ -28,9 +28,9 @@ def get_vacansis_hh(language):
             if vacancy['salary']:
                 salary = (predict_rub_salary_for_head_hunter(vacancy['salary']))
                 if salary:
-                    total_money += salary
+                    total_vacances_money_hh += salary
                     vacancees_processed += 1
-        average_salary = int(total_money / vacancees_processed)
+        average_salary = int(total_vacances_money_hh / vacancees_processed)
         language_info = {
             'language': language,
             'vacancies_found': response.json()['found'],
@@ -44,7 +44,7 @@ def get_vacansis_hh(language):
 def get_vacansis_sj(language):
     moscow_id_for_sj = 4
     page_count = 100
-    total_money = 0
+    total_vacances_money_sj = 0
     vacancees_processed = 0
     page = 1
     headers = {
@@ -67,13 +67,13 @@ def get_vacansis_sj(language):
             for vacancy in response.json()['objects']:
                 salary = predict_rub_salary_for_superjob(vacancy)
                 if salary:
-                    total_money += salary
+                    total_vacances_money_sj += salary
                     vacancees_processed += 1
             if not response.json()['more']:
                 break
         except requests.exceptions.ConnectionError:
             sleep(2)
-    average_salary = int(total_money / vacancees_processed)
+    average_salary = int(total_vacances_money_sj / vacancees_processed)
     language_info = {
         'language': language,
         'vacancies_found': response.json()['total'],
