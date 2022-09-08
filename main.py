@@ -31,7 +31,10 @@ def get_vacansis_hh(language):
                 if salary:
                     total_vacances_money_hh += salary
                     vacancees_processed += 1
-        average_salary = int(total_vacances_money_hh / vacancees_processed)
+        if vacancees_processed:
+            average_salary = int(total_vacances_money_sj / vacancees_processed)
+        else:
+            average_salary = 0
         language_params = {
             'language': language,
             'vacancies_found': vacancies_page['found'],
