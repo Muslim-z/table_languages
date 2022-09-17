@@ -27,12 +27,12 @@ def get_vacansis_hh(language):
         pages_number = response.json()['pages']
         for vacancy in vacancies_page['items']:
             if vacancy['salary']:
-                salary = (predict_rub_salary_for_head_hunter(vacancy['salary']))
+                salary = (predict_rub_salary(vacancy['salary']['currency'], vacancy['salary']['from'], vacancy['salary']['to']))
                 if salary:
                     total_vacances_money_hh += salary
                     vacancees_processed += 1
         if vacancees_processed:
-            average_salary = int(total_vacances_money_sj / vacancees_processed)
+            average_salary = int(total_vacances_money_hh / vacancees_processed)
         else:
             average_salary = 0
         language_params = {
@@ -70,7 +70,7 @@ def get_vacansis_sj(language):
                 return
             page += 1
             for vacancy in vacancies_page['objects']:
-                salary = predict_rub_salary_for_superjob(vacancy)
+                salary = predict_rub_salary(vacancy['currency'], vacancy['payment_from'], vacancy['payment_to'])
                 if salary:
                     total_vacances_money_sj += salary
                     vacancees_processed += 1
@@ -91,24 +91,15 @@ def get_vacansis_sj(language):
     return language_params
 
 
-def predict_rub_salary_for_head_hunter(salary):
-    if salary['currency'] == 'RUR':
-        if salary['from'] and salary['to']:
-            return (salary['from'] + salary['to']) / 2
-        elif salary['from']:
-            return salary['from'] * 1.2
-        elif salary['to']:
-            return salary['to'] * 0.8
-
-
-def predict_rub_salary_for_superjob(vacancy):
-    if vacancy['currency'] == 'rub':
-        if vacancy['payment_from'] and vacancy['payment_to']:
-            return (vacancy['payment_from'] + vacancy['payment_to']) / 2
-        elif vacancy['payment_from']:
-            return vacancy['payment_from'] * 1.2
-        elif vacancy['payment_to']:
-            return vacancy['payment_to'] * 0.8
+def predict_rub_salary(currency, payment_from, payment_to):
+    if not currency == 'rub' and not currency == 'RUR':
+        return None
+    if payment_from and payment_to:
+        return (payment_from + payment_to) / 2
+    elif payment_from:
+        return payment_from * 1.2
+    elif payment_to:
+        return payment_to * 0.8
 
 
 def make_table(languages_params):
@@ -140,7 +131,7 @@ if __name__ == '__main__':
     hh_top_languages = []
 
     for language in languages:
-        top_languages_sj.append(get_vacansis_sj(language))
-        top_languages_hh.append((get_vacansis_hh(language)))
-    print(make_table(top_languages_sj))
-    print(make_table(top_languages_hh))
+        sj_top_languages.append(get_vacansis_sj(language))
+        hh_top_languages.append(get_vacansis_hh(language))
+    print(make_table(sj_top_languages))
+    print(make_table(hh_top_languages))
