@@ -103,7 +103,7 @@ def predict_rub_salary(currency, payment_from, payment_to):
 
 
 def make_table(languages_params):
-    table_data = [
+    table_payload = [
         ['Язык программирования', 'Вакансий найдено', 'Вакансий обработано', 'Средняя зарплата'],
 
     ]
