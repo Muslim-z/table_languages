@@ -46,7 +46,7 @@ def get_vacansis_hh(language):
     return language_params
 
 
-def get_vacansis_sj(language):
+def get_vacansis_sj(language, sj_key):
     moscow_id_for_sj = 4
     page_count = 100
     total_vacances_money_sj = 0
@@ -116,8 +116,8 @@ def make_table(languages_params):
                 language_params['vacancies_processed'],
                 language_params['average_salary']
             ]
-        table_data.append(table_row)
-    table = AsciiTable(table_data)
+        table_payload.append(table_row)
+    table = AsciiTable(table_payload)
     return table.table
 
 if __name__ == '__main__':
@@ -132,7 +132,7 @@ if __name__ == '__main__':
     hh_top_languages = []
 
     for language in languages:
-        sj_top_languages.append(get_vacansis_sj(language))
+        sj_top_languages.append(get_vacansis_sj(language, sj_key))
         hh_top_languages.append(get_vacansis_hh(language))
     print(make_table(sj_top_languages))
     print(make_table(hh_top_languages))
