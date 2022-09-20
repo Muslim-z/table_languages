@@ -26,11 +26,12 @@ def get_vacansis_hh(language):
         page += 1
         pages_number = response.json()['pages']
         for vacancy in vacancies_page['items']:
-            if vacancy['salary']:
-                salary = (predict_rub_salary(vacancy['salary']['currency'], vacancy['salary']['from'], vacancy['salary']['to']))
-                if salary:
-                    total_vacances_money_hh += salary
-                    vacancees_processed += 1
+            if not vacancy['salary']:
+                continue
+            salary = (predict_rub_salary(vacancy['salary']['currency'], vacancy['salary']['from'], vacancy['salary']['to']))
+            if salary:
+                total_vacances_money_hh += salary
+                vacancees_processed += 1
         if vacancees_processed:
             average_salary = int(total_vacances_money_hh / vacancees_processed)
         else:
